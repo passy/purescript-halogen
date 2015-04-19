@@ -97,10 +97,11 @@ ui = component (render <$> stateful (State false exampleCode Nothing) update)
                                           , Tuple "height" "200px"
                                           ])
                               ] [] ]
-          , H.p_ [ H.button [ A.classes [B.btn, B.btnPrimary]
-                            , A.disabled busy
-                            , A.onclick (\_ -> pure (handler code))
-                            ] [ H.text "Compile" ] ]
+          , H.p_ [ H.a [ A.classes [B.btn, B.btnPrimary]
+                       , A.href "#compile"
+                       , A.disabled busy
+                       , A.onclick (\_ -> E.preventDefault $> pure (handler code))
+                       ] [ H.text "Compile" ] ]
           , H.p_ [ H.text (if busy then "Working..." else "") ]
           ] ++ flip foldMap result \js ->
           [ H.div [ A.initializer initialized, A.finalizer finalized ]
